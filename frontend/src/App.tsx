@@ -1,15 +1,29 @@
 import { useEffect, useState } from 'react'
 import Dashboard from './components/Dashboard'
 import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
+import ThemeCustomizer from './components/ThemeCustomizer'
+
+// Update this to your WSL IP address
+const API_BASE_URL = 'http://172.23.188.30:8000'
 
 function App() {
   const [isConnected, setIsConnected] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [chartColor, setChartColor] = useState('#3b82f6')
+  const [isThemeOpen, setIsThemeOpen] = useState(false)
 
   useEffect(() => {
+    // Load chart color from localStorage
+    const savedColor = localStorage.getItem('chart-color')
+    if (savedColor) {
+      setChartColor(savedColor)
+    }
+
     // Check backend connection on mount
     const checkConnection = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/health')
+        const response = await fetch(`${API_BASE_URL}/api/health`)
         if (response.ok) {
           setIsConnected(true)
         }
@@ -24,12 +38,34 @@ function App() {
     return () => clearInterval(interval)
   }, [])
 
+  const handleChartColorChange = (color: string) => {
+    setChartColor(color)
+  }
+
   return (
     <div className="min-h-screen bg-background">
-      <Navbar isConnected={isConnected} />
-      <main className="flex-1">
-        <Dashboard />
+      <Sidebar onCollapsedChange={setSidebarCollapsed} />
+      <Navbar
+        isConnected={isConnected}
+        sidebarCollapsed={sidebarCollapsed}
+        onThemeOpen={() => setIsThemeOpen(true)}
+      />
+      
+      <main
+        className={`transition-all duration-300 ease-in-out pt-16 ${
+          sidebarCollapsed ? 'ml-20' : 'ml-64'
+        }`}
+      >
+        <Dashboard chartColor={chartColor} />
       </main>
+
+      {/* Theme Customizer - Rendered at top level to avoid z-index issues */}
+      <ThemeCustomizer
+        isOpen={isThemeOpen}
+        onClose={() => setIsThemeOpen(false)}
+        onColorChange={handleChartColorChange}
+        currentColor={chartColor}
+      />
     </div>
   )
 }
