@@ -1,0 +1,23 @@
+{
+  "name": "basic-trading-software-monorepo",
+  "version": "0.1.0",
+  "description": "Modern trading dashboard with React frontend and FastAPI backend",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "install": "pnpm install",
+    "dev": "pnpm run --parallel dev",
+    "build": "pnpm run --parallel build",
+    "backend:dev": "cd backend && python -m uvicorn src.api.main:app --reload",
+    "frontend:dev": "cd frontend && pnpm dev",
+    "frontend:build": "cd frontend && pnpm build",
+    "electron:dev": "cd frontend && pnpm electron-dev",
+    "electron:build": "cd frontend && pnpm electron-build"
+  },
+  "devDependencies": {
+    "pnpm": "^8.10.0"
+  }
+}

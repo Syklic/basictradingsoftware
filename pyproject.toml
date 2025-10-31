@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "basic-trading-software"
+version = "0.1.0"
+description = "Desktop trading workstation powered by machine learning and Qt."
+requires-python = ">=3.11"
+authors = [{ name = "Your Team" }]
+keywords = ["trading", "machine-learning", "desktop-app", "qt"]
+license = { text = "Proprietary" }
+dependencies = [
+    "pyside6>=6.7",
+    "qt-material>=2.14",
+    "pyqtgraph>=0.13",
+    "qasync>=0.27",
+    "numpy>=1.26",
+    "pandas>=2.2",
+    "polars>=1.1",
+    "aiohttp>=3.9",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+    "loguru>=0.7",
+    "torch>=2.2",
+    "lightning>=2.2",
+    "scikit-learn>=1.4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2",
+    "pytest-qt>=4.4",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.4",
+    "mypy>=1.9",
+    "pre-commit>=3.7",
+]
+
+[project.scripts]
+basic-trading-software = "basic_trading_software.app:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
