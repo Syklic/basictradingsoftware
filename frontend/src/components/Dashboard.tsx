@@ -3,6 +3,7 @@ import PortfolioCard from './PortfolioCard'
 import OrdersPanel from './OrdersPanel'
 import SignalsPanel from './SignalsPanel'
 import PriceChart from './PriceChart'
+import LoadingState from './ui/LoadingState'
 
 // Update this to your WSL IP address
 const API_BASE_URL = 'http://172.23.188.30:8000'
@@ -33,9 +34,13 @@ export default function Dashboard({ chartColor = '#3b82f6' }: DashboardProps) {
   const [ordersData, setOrdersData] = useState([])
   const [signalsData, setSignalsData] = useState([])
   const [isInitialLoading, setIsInitialLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const fetchDashboardData = async () => {
+      setIsLoading(true)
+      setError(null)
       try {
         const [portfolioRes, ordersRes, signalsRes] = await Promise.all([
           fetch(`${API_BASE_URL}/api/portfolio`),
@@ -43,22 +48,28 @@ export default function Dashboard({ chartColor = '#3b82f6' }: DashboardProps) {
           fetch(`${API_BASE_URL}/api/signals`),
         ])
 
-        if (portfolioRes.ok) {
-          setPortfolioData(await portfolioRes.json())
+        // Check if any request failed
+        if (!portfolioRes.ok || !ordersRes.ok || !signalsRes.ok) {
+          throw new Error('Failed to fetch dashboard data')
         }
-        if (ordersRes.ok) {
-          setOrdersData(await ordersRes.json())
-        }
-        if (signalsRes.ok) {
-          setSignalsData(await signalsRes.json())
-        }
-      } catch (error) {
-        console.error('Failed to fetch dashboard data:', error)
+
+        const portfolioJson = await portfolioRes.json()
+        const ordersJson = await ordersRes.json()
+        const signalsJson = await signalsRes.json()
+
+        setPortfolioData(portfolioJson)
+        setOrdersData(ordersJson.orders || [])
+        setSignalsData(signalsJson.signals || [])
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Unable to connect to server'
+        setError(errorMessage)
+        console.error('Failed to fetch dashboard data:', err)
       } finally {
         // Only set initial loading to false on first load
         if (isInitialLoading) {
           setIsInitialLoading(false)
         }
+        setIsLoading(false)
       }
     }
 
@@ -67,10 +78,11 @@ export default function Dashboard({ chartColor = '#3b82f6' }: DashboardProps) {
     return () => clearInterval(interval)
   }, [isInitialLoading])
 
+  // Initial loading state
   if (isInitialLoading) {
     return (
-      <div className="flex items-center justify-center h-96">
-        <div className="text-lg text-muted-foreground">Loading dashboard...</div>
+      <div className="p-6">
+        <LoadingState title="Loading Dashboard" />
       </div>
     )
   }
@@ -80,17 +92,21 @@ export default function Dashboard({ chartColor = '#3b82f6' }: DashboardProps) {
       {/* Portfolio Value Card */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <PortfolioCard data={portfolioData} />
+          <PortfolioCard 
+            data={portfolioData}
+            isLoading={isLoading}
+            error={error ? 'Unable to load portfolio data' : undefined}
+          />
         </div>
 
         {/* Statistics Grid */}
         <div className="grid grid-cols-1 gap-3">
           {mockStatistics.map((stat, idx) => (
-            <div key={idx} className="rounded-lg border border-border bg-card p-4">
+            <div key={idx} className="rounded-lg border border-border bg-card p-4 hover:shadow-md transition-shadow">
               <p className="text-xs font-medium text-muted-foreground uppercase">{stat.label}</p>
               <div className="flex items-end justify-between mt-2">
                 <p className="text-xl font-bold">{stat.value}</p>
-                <p className={`text-xs font-semibold ${stat.positive ? 'text-green-600' : 'text-red-600'}`}>
+                <p className={`text-xs font-semibold ${stat.positive ? 'text-green-600 dark:text-green-500' : 'text-red-600 dark:text-red-500'}`}>
                   {stat.change}
                 </p>
               </div>

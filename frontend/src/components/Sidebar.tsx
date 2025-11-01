@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, BarChart3, Zap, TrendingUp, Settings, LogOut
 
 interface SidebarProps {
   onCollapsedChange?: (collapsed: boolean) => void
+  onSettingsClick?: () => void
 }
 
 const menuItems = [
@@ -10,10 +11,9 @@ const menuItems = [
   { icon: TrendingUp, label: 'Portfolio', href: '#' },
   { icon: BarChart3, label: 'Analytics', href: '#' },
   { icon: Zap, label: 'Signals', href: '#' },
-  { icon: Settings, label: 'Settings', href: '#' },
 ]
 
-export default function Sidebar({ onCollapsedChange }: SidebarProps) {
+export default function Sidebar({ onCollapsedChange, onSettingsClick }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false)
 
   // Load sidebar state from localStorage on mount
@@ -71,8 +71,18 @@ export default function Sidebar({ onCollapsedChange }: SidebarProps) {
         ))}
       </nav>
 
-      {/* Logout / Footer */}
-      <div className="border-t border-border p-4">
+      {/* Settings and Logout / Footer */}
+      <div className="border-t border-border p-4 space-y-2">
+        <button
+          onClick={onSettingsClick}
+          className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-muted transition-colors ${
+            collapsed ? 'justify-center' : ''
+          }`}
+          title={collapsed ? 'Settings' : undefined}
+        >
+          <Settings className="h-5 w-5 flex-shrink-0" />
+          {!collapsed && <span className="text-sm font-medium">Settings</span>}
+        </button>
         <button
           className={`flex items-center gap-3 w-full px-3 py-2 rounded-lg hover:bg-destructive/10 text-destructive transition-colors ${
             collapsed ? 'justify-center' : ''

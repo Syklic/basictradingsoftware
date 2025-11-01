@@ -96,6 +96,54 @@ async def get_signals():
     }
 
 
+@app.post("/api/settings/credentials")
+async def save_credentials(credentials: dict):
+    """Save API credentials for brokers and exchanges."""
+    # TODO: Persist credentials securely (e.g., encrypted storage)
+    # For now, just return success - credentials are stored on client side
+    return {
+        "status": "success",
+        "message": "Credentials saved successfully",
+        "timestamp": datetime.utcnow().isoformat(),
+    }
+
+
+@app.get("/api/settings/credentials")
+async def get_credentials():
+    """Get saved API credentials (placeholder)."""
+    # TODO: Retrieve credentials securely
+    return {
+        "credentials": {},
+        "timestamp": datetime.utcnow().isoformat(),
+    }
+
+
+@app.post("/api/settings/save")
+async def save_all_settings(data: dict):
+    """Save all settings (credentials + general settings)."""
+    # TODO: Persist all settings securely
+    # For now, just return success - settings are stored on client side
+    credentials = data.get("credentials", {})
+    general_settings = data.get("generalSettings", {})
+    
+    # Log what settings were saved
+    trading_mode = general_settings.get("tradingMode", "unknown")
+    selected_model = general_settings.get("selectedModel", "unknown")
+    assets = general_settings.get("assetsToMonitor", [])
+    staking_provider = general_settings.get("stakingProvider", "none")
+    
+    return {
+        "status": "success",
+        "message": "All settings saved successfully",
+        "credentials_count": len(credentials),
+        "trading_mode": trading_mode,
+        "ml_model": selected_model,
+        "assets_monitored": len(assets),
+        "staking_enabled": staking_provider != "none",
+        "timestamp": datetime.utcnow().isoformat(),
+    }
+
+
 # WebSocket Endpoint for Real-time Updates
 @app.websocket("/ws/updates")
 async def websocket_endpoint(websocket: WebSocket):
