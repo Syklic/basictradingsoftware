@@ -1,0 +1,568 @@
+/* ============================================================================
+   PRACTICAL ANIMATIONS - Production-Ready Animation Library
+   ============================================================================ */
+
+/* ============================================================================
+   MICRO-INTERACTIONS: State Changes & Transitions
+   ============================================================================ */
+
+/* Pulse - For notifications, status changes */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Gentle Glow - For signal generation, opportunities */
+@keyframes glow-effect {
+  0% {
+    box-shadow: 0 0 0 0 var(--glow-color, rgba(59, 130, 246, 0.7));
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+/* Color Transition - From green to red (connection status) */
+@keyframes status-change {
+  from {
+    background-color: #10b981;
+  }
+  to {
+    background-color: #ef4444;
+  }
+}
+
+/* Shimmer - Loading wave across cards */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* ============================================================================
+   SLIDE & FADE TRANSITIONS - Page navigation
+   ============================================================================ */
+
+/* Slide Up */
+@keyframes slideInUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Slide Down */
+@keyframes slideInDown {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Slide Left */
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Slide Right */
+@keyframes slideInRight {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Fade Out */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* ============================================================================
+   MODAL ANIMATIONS - Scale & Backdrop Fade
+   ============================================================================ */
+
+/* Scale In - Modal appearance */
+@keyframes scaleIn {
+  from {
+    transform: scale(var(--start-scale, 0.95));
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Scale Out - Modal disappearance */
+@keyframes scaleOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(var(--start-scale, 0.95));
+    opacity: 0;
+  }
+}
+
+/* ============================================================================
+   EXPAND/COLLAPSE ANIMATIONS - Panel transitions
+   ============================================================================ */
+
+/* Expand Height */
+@keyframes expandHeight {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 1000px;
+    opacity: 1;
+  }
+}
+
+/* Collapse Height */
+@keyframes collapseHeight {
+  from {
+    max-height: 1000px;
+    opacity: 1;
+  }
+  to {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+/* ============================================================================
+   FEEDBACK ANIMATIONS - User Actions
+   ============================================================================ */
+
+/* Button Click - Scale down feedback */
+@keyframes buttonPress {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Toggle Slide - Switch animation */
+@keyframes toggleSlide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(20px);
+  }
+}
+
+/* Bounce - Toggle and notification badges */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Shake - Critical alerts (subtle) */
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-2px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(2px);
+  }
+}
+
+/* Checkmark Swap - Copy to clipboard */
+@keyframes checkmarkAppear {
+  from {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   VALUE CHANGE ANIMATIONS - Numbers & Prices
+   ============================================================================ */
+
+/* Green Flash - Profit increase */
+@keyframes greenFlash {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(16, 185, 129, 0.2);
+  }
+}
+
+/* Red Flash - Loss increase */
+@keyframes redFlash {
+  0%, 100% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.2);
+  }
+}
+
+/* Number Count - Odometer effect */
+@keyframes countUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Arrow Up - Profit indicator */
+@keyframes arrowUp {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+}
+
+/* Arrow Down - Loss indicator */
+@keyframes arrowDown {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+}
+
+/* ============================================================================
+   ATTENTION INDICATORS - Notifications & Alerts
+   ============================================================================ */
+
+/* Notification Badge Bounce */
+@keyframes badgeBounce {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Progress Ring Animation */
+@keyframes progressRing {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -283;
+  }
+}
+
+/* Countdown Animation */
+@keyframes countdownPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+/* ============================================================================
+   CHART ANIMATIONS - Data Entry & Interactions
+   ============================================================================ */
+
+/* Line Chart Draw - Left to right */
+@keyframes lineChartDraw {
+  from {
+    stroke-dashoffset: 1000;
+    stroke-dasharray: 1000;
+  }
+  to {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 1000;
+  }
+}
+
+/* Bar Chart Grow - From bottom */
+@keyframes barChartGrow {
+  from {
+    height: 0;
+    transform: translateY(100%);
+  }
+  to {
+    height: 100%;
+    transform: translateY(0);
+  }
+}
+
+/* Candlestick Fade In - With stagger */
+@keyframes candlestickFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Crosshair Smooth Follow - Will be handled by JS */
+@keyframes crosshairFloat {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Zoom Animation */
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ============================================================================
+   LOADING STATES - Skeleton Screens & Spinners
+   ============================================================================ */
+
+/* Skeleton Pulse - Loading placeholders */
+@keyframes skeletonPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Spinner Rotation - Indeterminate progress */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Progress Bar Fill - With gradient */
+@keyframes progressFill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* ============================================================================
+   COMPLEX ANIMATIONS - Advanced Effects
+   ============================================================================ */
+
+/* Flip Animation */
+@keyframes flip {
+  from {
+    transform: rotateY(0deg);
+  }
+  50% {
+    transform: rotateY(90deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+/* Rotate Animation */
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Elastic Bounce */
+@keyframes elasticBounce {
+  0%, 100% {
+    transform: translate(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translate(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translate(5px);
+  }
+}
+
+/* ============================================================================
+   UTILITY CLASSES - Ready-to-use animation classes
+   ============================================================================ */
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+.animate-slideInUp {
+  animation: slideInUp 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-slideInDown {
+  animation: slideInDown 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-slideInRight {
+  animation: slideInRight 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-fadeIn {
+  animation: fadeIn 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-scaleIn {
+  animation: scaleIn 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-bounce {
+  animation: bounce 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.animate-buttonPress {
+  animation: buttonPress 150ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.animate-greenFlash {
+  animation: greenFlash 600ms ease-out;
+}
+
+.animate-redFlash {
+  animation: redFlash 600ms ease-out;
+}
+
+/* ============================================================================
+   RESPONSIVE & PERFORMANCE OPTIMIZATIONS
+   ============================================================================ */
+
+/* Reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* GPU acceleration for smooth animations */
+.hardware-accelerated {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Reduce animations on lower-end devices */
+@media (prefers-reduced-motion: no-preference) and (max-width: 768px) {
+  .animate-complex {
+    animation-duration: 150ms !important;
+  }
+}

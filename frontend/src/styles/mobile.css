@@ -1,0 +1,437 @@
+/* ============================================================================
+   MOBILE & RESPONSIVE DESIGN
+   ============================================================================ */
+
+/* ============================================================================
+   SAFE AREA SUPPORT - Notched devices
+   ============================================================================ */
+
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top, 0);
+  --safe-area-inset-right: env(safe-area-inset-right, 0);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0);
+  --safe-area-inset-left: env(safe-area-inset-left, 0);
+}
+
+.safe-area-pt {
+  padding-top: max(1rem, env(safe-area-inset-top));
+}
+
+.safe-area-pb {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.safe-area-pl {
+  padding-left: max(1rem, env(safe-area-inset-left));
+}
+
+.safe-area-pr {
+  padding-right: max(1rem, env(safe-area-inset-right));
+}
+
+/* ============================================================================
+   TOUCH DEVICE OPTIMIZATION
+   ============================================================================ */
+
+/* Increase touch target sizes on mobile */
+@media (hover: none) and (pointer: coarse) {
+  button,
+  a,
+  input[type='checkbox'],
+  input[type='radio'] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Improve clickable areas */
+  button {
+    padding: 12px 16px;
+  }
+
+  /* Remove focus outlines on touch */
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid var(--primary, #3b82f6);
+    outline-offset: 2px;
+  }
+
+  /* Prevent double tap zoom on inputs */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* ============================================================================
+   VIEWPORT-SPECIFIC STYLES
+   ============================================================================ */
+
+/* Mobile (< 640px) */
+@media (max-width: 639px) {
+  /* Hide desktop-only elements */
+  .hidden-mobile {
+    display: none !important;
+  }
+
+  /* Adjust padding for small screens */
+  body {
+    padding: 0;
+  }
+
+  /* Full width modals */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: none;
+  }
+
+  /* Larger text on mobile */
+  body {
+    font-size: 16px;
+  }
+
+  /* Stack layouts vertically */
+  .md\:flex-row {
+    flex-direction: column !important;
+  }
+
+  /* Reduce horizontal padding */
+  .px-4,
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Full width forms */
+  input,
+  select,
+  textarea {
+    width: 100%;
+  }
+
+  /* Bottom navigation adjustment */
+  main,
+  .main-content {
+    padding-bottom: max(80px, calc(80px + env(safe-area-inset-bottom)));
+  }
+}
+
+/* Tablet (640px - 1024px) */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .hidden-tablet {
+    display: none !important;
+  }
+
+  /* Split-screen ready */
+  .tablet-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  /* Landscape optimization */
+  @media (orientation: landscape) {
+    .safe-area-pt {
+      padding-top: 0;
+    }
+
+    main {
+      max-height: calc(100vh - 44px);
+      overflow-y: auto;
+    }
+  }
+}
+
+/* Desktop (> 1024px) */
+@media (min-width: 1024px) {
+  .hidden-desktop {
+    display: none !important;
+  }
+
+  /* Desktop navigation */
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+/* ============================================================================
+   ORIENTATION-SPECIFIC STYLES
+   ============================================================================ */
+
+@media (orientation: portrait) {
+  /* Full width on portrait */
+  .fullwidth-portrait {
+    width: 100%;
+  }
+}
+
+@media (orientation: landscape) {
+  /* Reduce height on landscape */
+  .landscape-compact {
+    max-height: calc(100vh - 100px);
+  }
+
+  /* Hide optional elements */
+  .hide-landscape {
+    display: none !important;
+  }
+
+  /* Compact padding */
+  .landscape-compact-padding {
+    padding: 0.5rem;
+  }
+}
+
+/* ============================================================================
+   TOUCH GESTURE FEEDBACK
+   ============================================================================ */
+
+/* Active state feedback */
+.touch-feedback {
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
+}
+
+.touch-feedback:active {
+  opacity: 0.7;
+  transform: scale(0.98);
+}
+
+/* Disable tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ============================================================================
+   SCROLLING OPTIMIZATION
+   ============================================================================ */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Momentum scrolling on iOS */
+.scrollable {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+/* Hide scrollbar but keep scrollable */
+.scrollable-hidden-scrollbar {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollable-hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================================
+   INPUT OPTIMIZATION
+   ============================================================================ */
+
+/* Prevent zoom on input focus */
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='number'],
+input[type='tel'],
+input[type='search'],
+textarea {
+  font-size: 16px;
+  padding: 12px;
+}
+
+/* Better keyboard handling */
+input,
+textarea,
+select {
+  border-radius: 8px;
+  appearance: none;
+}
+
+/* Better select styling */
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M0 3l6 6 6-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+/* ============================================================================
+   RESPONSIVE GRID
+   ============================================================================ */
+
+.responsive-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+/* Mobile: 1 column */
+@media (max-width: 639px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ============================================================================
+   RESPONSIVE TYPOGRAPHY
+   ============================================================================ */
+
+/* Adjust font sizes for mobile */
+@media (max-width: 639px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* ============================================================================
+   LANDSCAPE MODE SPECIFIC
+   ============================================================================ */
+
+@media (max-height: 500px) {
+  /* Reduce padding in compact landscape */
+  main {
+    padding: 0.5rem;
+  }
+
+  /* Hide decorative elements */
+  .landscape-hide {
+    display: none !important;
+  }
+
+  /* Compact modals */
+  .modal {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+
+/* ============================================================================
+   VIEWPORT BREAKPOINTS - UTILITY
+   ============================================================================ */
+
+.show-mobile {
+  display: block;
+}
+
+.show-tablet {
+  display: none;
+}
+
+.show-desktop {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .show-mobile {
+    display: none;
+  }
+  .show-tablet {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .show-tablet {
+    display: none;
+  }
+  .show-desktop {
+    display: block;
+  }
+}
+
+/* ============================================================================
+   CHART RESPONSIVENESS
+   ============================================================================ */
+
+.responsive-chart {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+}
+
+@media (max-width: 639px) {
+  .responsive-chart {
+    min-height: 250px;
+    max-height: 300px;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .responsive-chart {
+    min-height: 350px;
+    max-height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-chart {
+    min-height: 400px;
+    max-height: 500px;
+  }
+}
+
+/* ============================================================================
+   BOTTOM NAV ADJUSTMENT
+   ============================================================================ */
+
+@media (max-width: 639px) {
+  /* Adjust main content for bottom nav */
+  body {
+    padding-bottom: 0;
+  }
+
+  main,
+  .main-content {
+    margin-bottom: max(80px, calc(80px + env(safe-area-inset-bottom)));
+  }
+
+  /* Disable horizontal scroll on small screens */
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* ============================================================================
+   PRINT MEDIA
+   ============================================================================ */
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+}

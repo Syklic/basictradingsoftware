@@ -1,0 +1,546 @@
+/* ============================================================================
+   ACCESSIBILITY & WCAG 2.1 AA COMPLIANCE
+   ============================================================================ */
+
+/* ============================================================================
+   KEYBOARD NAVIGATION & FOCUS INDICATORS
+   ============================================================================ */
+
+/* Visible focus indicators for keyboard navigation */
+:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* High contrast focus indicator */
+@media (prefers-contrast: more) {
+  :focus-visible {
+    outline: 3px solid #000;
+    outline-offset: 2px;
+  }
+}
+
+/* Skip to content link */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  z-index: 100;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ============================================================================
+   SCREEN READER ONLY CONTENT
+   ============================================================================ */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Screen reader only, but focusable for keyboard navigation */
+.sr-only-focusable:focus,
+.sr-only-focusable:focus-within {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ============================================================================
+   SEMANTIC HTML STRUCTURE
+   ============================================================================ */
+
+/* Ensure semantic elements have proper styling */
+nav {
+  display: block;
+}
+
+main {
+  display: block;
+}
+
+aside {
+  display: block;
+}
+
+article {
+  display: block;
+}
+
+section {
+  display: block;
+}
+
+header {
+  display: block;
+}
+
+footer {
+  display: block;
+}
+
+/* ============================================================================
+   HIGH CONTRAST MODE SUPPORT
+   ============================================================================ */
+
+@media (prefers-contrast: more) {
+  /* Increase border widths */
+  button,
+  input,
+  textarea,
+  select {
+    border-width: 2px !important;
+  }
+
+  /* Increase font weights */
+  strong,
+  b,
+  .font-bold {
+    font-weight: 900 !important;
+  }
+
+  /* Enhanced text color contrast */
+  body {
+    color: #000;
+  }
+
+  a {
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+  }
+
+  button {
+    border: 2px solid #000;
+    color: #000;
+    background-color: #fff;
+  }
+
+  button:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Stronger focus indicators */
+  :focus-visible {
+    outline: 4px solid #000;
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================================================
+   COLORBLIND-FRIENDLY PALETTES
+   ============================================================================ */
+
+/* Default accessible colors (work for all colorblind types) */
+:root {
+  /* Teal-Orange palette (works for protanopia, deuteranopia, tritanopia) */
+  --color-success: #2A9D8F; /* Teal */
+  --color-error: #E63946; /* Red with high value */
+  --color-warning: #F4A261; /* Orange-yellow */
+  --color-info: #457B9D; /* Slate blue */
+  --color-neutral: #9D4EDD; /* Purple */
+}
+
+/* Deuteranopia (Red-Green colorblind) friendly */
+.colorblind-deuteranopia {
+  --color-success: #0173B2; /* Blue */
+  --color-error: #DE8F05; /* Orange */
+  --color-warning: #CC78BC; /* Purple */
+  --color-info: #CA9161; /* Brown */
+}
+
+/* Protanopia (Red colorblind) friendly */
+.colorblind-protanopia {
+  --color-success: #0173B2; /* Blue */
+  --color-error: #DE8F05; /* Orange */
+  --color-warning: #029E73; /* Green */
+  --color-info: #CC78BC; /* Purple */
+}
+
+/* Tritanopia (Blue-Yellow colorblind) friendly */
+.colorblind-tritanopia {
+  --color-success: #E31A1C; /* Red */
+  --color-error: #FD8D3C; /* Orange */
+  --color-warning: #6BAED6; /* Blue */
+  --color-info: #74C476; /* Green */
+}
+
+/* Use patterns along with colors */
+.status-success {
+  background: linear-gradient(
+    45deg,
+    #2A9D8F 25%,
+    transparent 25%,
+    transparent 50%,
+    #2A9D8F 50%,
+    #2A9D8F 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+
+.status-error {
+  background: linear-gradient(
+    -45deg,
+    #E63946 25%,
+    transparent 25%,
+    transparent 50%,
+    #E63946 50%,
+    #E63946 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+
+.status-warning {
+  background: linear-gradient(
+    90deg,
+    #F4A261 25%,
+    transparent 25%,
+    transparent 50%,
+    #F4A261 50%,
+    #F4A261 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 8px 8px;
+}
+
+/* ============================================================================
+   TEXT SIZE & ZOOM SUPPORT
+   ============================================================================ */
+
+/* Support for text size adjustment */
+html {
+  font-size: 16px;
+}
+
+/* Ensure text can be enlarged without overflow */
+body {
+  line-height: 1.6;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Support up to 200% zoom */
+@media screen and (min-width: 320px) {
+  html {
+    font-size: clamp(14px, 2.5vw, 18px);
+  }
+}
+
+/* Adjustable text size classes */
+.text-size-small {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.text-size-normal {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.text-size-large {
+  font-size: 1.25rem;
+  line-height: 1.7;
+}
+
+.text-size-extra-large {
+  font-size: 1.5rem;
+  line-height: 1.8;
+}
+
+/* ============================================================================
+   REDUCED MOTION SUPPORT
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Still provide visual feedback without animation */
+@media (prefers-reduced-motion: reduce) {
+  button:active {
+    opacity: 0.7;
+  }
+
+  a:active {
+    text-decoration: underline;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 3px solid #3b82f6;
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================================================
+   LINK STYLING FOR ACCESSIBILITY
+   ============================================================================ */
+
+/* Ensure links are visually distinct */
+a {
+  color: #2563eb;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:visited {
+  color: #7c3aed;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+a:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   FORM FIELD ACCESSIBILITY
+   ============================================================================ */
+
+/* Associate labels with inputs */
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+input,
+textarea,
+select {
+  font-size: 16px; /* Prevent zoom on iOS */
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  border-color: #3b82f6;
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Indicate required fields */
+input[required]::after,
+textarea[required]::after,
+select[required]::after {
+  content: ' *';
+  color: #e63946;
+  font-weight: bold;
+}
+
+/* Error state styling */
+input[aria-invalid='true'],
+textarea[aria-invalid='true'],
+select[aria-invalid='true'] {
+  border-color: #e63946;
+  background-color: #ffe6e6;
+}
+
+/* Disabled state */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  background-color: #f5f5f5;
+  color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ============================================================================
+   BUTTON ACCESSIBILITY
+   ============================================================================ */
+
+button {
+  min-height: 44px;
+  min-width: 44px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 200ms ease-out;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+button:active {
+  transform: scale(0.98);
+  opacity: 0.8;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* ============================================================================
+   ICON ACCESSIBILITY
+   ============================================================================ */
+
+/* Ensure icons have proper labels */
+svg[aria-hidden='true'] {
+  display: block;
+  pointer-events: none;
+}
+
+/* Button with icon only needs aria-label */
+button > svg:only-child {
+  width: 1em;
+  height: 1em;
+}
+
+/* ============================================================================
+   TABLE ACCESSIBILITY
+   ============================================================================ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+/* Add spacing between rows for readability */
+tbody tr {
+  border-bottom: 2px solid #eee;
+}
+
+/* ============================================================================
+   LIVE REGION SUPPORT
+   ============================================================================ */
+
+/* Live regions announce content changes */
+[aria-live='polite'],
+[aria-live='assertive'] {
+  position: relative;
+}
+
+[aria-live='assertive'] {
+  font-weight: bold;
+}
+
+/* ============================================================================
+   PRINT STYLESHEET FOR ACCESSIBILITY
+   ============================================================================ */
+
+@media print {
+  /* Hide interactive elements */
+  nav,
+  .no-print {
+    display: none !important;
+  }
+
+  /* Show URLs for links */
+  a::after {
+    content: ' (' attr(href) ')';
+    word-break: break-all;
+  }
+
+  /* Increase contrast for print */
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  /* Ensure headings are visible */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+}
+
+/* ============================================================================
+   UTILITY CLASSES FOR ACCESSIBILITY
+   ============================================================================ */
+
+/* Ensure sufficient spacing for touch targets */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ensure text has enough line height */
+.readable-text {
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+/* Ensure sufficient contrast */
+.high-contrast {
+  color: #000;
+  background-color: #fff;
+}

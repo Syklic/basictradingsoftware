@@ -1,84 +1,51 @@
-import { useEffect, useState } from 'react'
-import Dashboard from './components/Dashboard'
-import Navbar from './components/Navbar'
-import Sidebar from './components/Sidebar'
-import ThemeCustomizer from './components/ThemeCustomizer'
-import SettingsDialog from './components/SettingsDialog'
-
-// Update this to your WSL IP address
-const API_BASE_URL = 'http://172.23.188.30:8000'
+import { useEffect, useState } from "react";
+import Navbar from "./components/Navbar";
+import ThemeCustomizer from "./components/ThemeCustomizer";
+import SettingsDialog from "./components/SettingsDialog";
+import MultiViewNav from "./components/navigation/MultiViewNav";
+import Breadcrumbs from "./components/navigation/Breadcrumbs";
+import ViewContainer from "./components/views/ViewContainer";
+import { getFromStorage, saveToStorage } from "./utils/storage";
 
 function App() {
-  const [isConnected, setIsConnected] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
-  const [chartColor, setChartColor] = useState('#3b82f6')
-  const [isThemeOpen, setIsThemeOpen] = useState(false)
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false)
+	const [isThemeOpen, setIsThemeOpen] = useState(false);
+	const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  useEffect(() => {
-    // Load chart color from localStorage
-    const savedColor = localStorage.getItem('chart-color')
-    if (savedColor) {
-      setChartColor(savedColor)
-    }
+	useEffect(() => {
+		const saved = getFromStorage<string | null>("theme", null);
+		const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+		const shouldBeDark = saved ? saved === "dark" : prefersDark;
+		if (shouldBeDark) {
+			document.documentElement.classList.add("dark");
+		}
+	}, []);
 
-    // Check backend connection on mount
-    const checkConnection = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/health`)
-        if (response.ok) {
-          setIsConnected(true)
-        }
-      } catch (error) {
-        console.error('Backend connection failed:', error)
-        setIsConnected(false)
-      }
-    }
+	return (
+		<div className="min-h-screen bg-background text-foreground">
+			{/* Navigation */}
+			<Navbar isConnected={true} onThemeOpen={() => setIsThemeOpen(true)} />
 
-    checkConnection()
-    const interval = setInterval(checkConnection, 5000)
-    return () => clearInterval(interval)
-  }, [])
+			{/* Main Layout */}
+			<div className="flex h-screen pt-16">
+				{/* Multi-View Navigation */}
+				<MultiViewNav />
 
-  const handleChartColorChange = (color: string) => {
-    setChartColor(color)
-  }
+				{/* Main Content Area */}
+				<div className="flex-1 flex flex-col overflow-hidden" style={{ marginLeft: "256px" }}>
+					{/* Breadcrumbs */}
+					<Breadcrumbs />
 
-  return (
-    <div className="min-h-screen bg-background">
-      <Sidebar 
-        onCollapsedChange={setSidebarCollapsed}
-        onSettingsClick={() => setIsSettingsOpen(true)}
-      />
-      <Navbar
-        isConnected={isConnected}
-        sidebarCollapsed={sidebarCollapsed}
-        onThemeOpen={() => setIsThemeOpen(true)}
-      />
-      
-      <main
-        className={`transition-all duration-300 ease-in-out pt-16 ${
-          sidebarCollapsed ? 'ml-20' : 'ml-64'
-        }`}
-      >
-        <Dashboard chartColor={chartColor} />
-      </main>
+					{/* View Container */}
+					<ViewContainer />
+				</div>
+			</div>
 
-      {/* Theme Customizer - Rendered at top level to avoid z-index issues */}
-      <ThemeCustomizer
-        isOpen={isThemeOpen}
-        onClose={() => setIsThemeOpen(false)}
-        onColorChange={handleChartColorChange}
-        currentColor={chartColor}
-      />
+			{/* Modals */}
+			{isThemeOpen && <ThemeCustomizer onClose={() => setIsThemeOpen(false)} />}
 
-      {/* Settings Dialog - Rendered at top level to avoid z-index issues */}
-      <SettingsDialog
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-      />
-    </div>
-  )
+			{isSettingsOpen && <SettingsDialog isOpen={isSettingsOpen} onClose={() => setIsSettingsOpen(false)} />}
+		</div>
+	);
 }
 
-export default App
+export default App;

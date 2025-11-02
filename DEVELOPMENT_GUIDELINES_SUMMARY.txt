@@ -1,0 +1,296 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                ║
+║               ✅ DEVELOPMENT GUIDELINES - ENFORCED FROM NOW ON ✅              ║
+║                                                                                ║
+║                  These standards MUST be followed on all work                  ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 CORE PRINCIPLES (Must Follow)
+
+1. DRY (Don't Repeat Yourself)
+   ✅ Extract repeated code into utilities, constants, or hooks
+   ✅ Create shared functions instead of copy-pasting
+   ✅ One source of truth for calculations, options, and types
+   ❌ Never duplicate logic across files
+
+2. Single Responsibility Principle
+   ✅ Each function/component does ONE thing well
+   ✅ Break complex components into smaller pieces
+   ✅ Keep components focused and maintainable
+   ❌ Don't create "god components" that do everything
+
+3. KISS (Keep It Simple, Stupid)
+   ✅ Write clear, readable code
+   ✅ Choose simplicity over cleverness
+   ✅ If it needs explaining, it's too complex
+   ❌ Don't over-engineer solutions
+
+4. YAGNI (You Aren't Gonna Need It)
+   ✅ Build what's needed now
+   ✅ Refactor when requirements change
+   ✅ Focus on core requirements
+   ❌ Don't add "just in case" features
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📁 WHERE TO PUT CODE
+
+Use utils/ for:
+✅ Pure functions with no side effects
+✅ Calculations, formatting, validation
+✅ Example: calculatePnL(), formatCurrency()
+
+Use hooks/ for:
+✅ React-specific logic (state, effects, context)
+✅ Stateful and reusable logic
+✅ Example: useTemporaryMessage(), useApiCall()
+
+Use constants/ for:
+✅ Configuration values and option lists
+✅ Constant values used in multiple places
+✅ Example: STAKING_PROVIDERS, ASSET_OPTIONS
+
+Use types/ for:
+✅ TypeScript type definitions
+✅ Interfaces and type aliases
+✅ Example: Position interface, CloseableProps
+
+Keep in components/ for:
+✅ Component-specific logic ONLY
+✅ Render logic
+❌ DON'T put utility functions here
+❌ DON'T put constants here
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ BEFORE WRITING ANY CODE - CHECKLIST
+
+Ask yourself these questions:
+
+□ Does this logic already exist somewhere?
+  → If yes, reuse it or extract it to a shared utility
+
+□ Should this be a hook, utility, or constant?
+  → Hook: React logic with state/effects
+  → Utility: Pure function with no side effects
+  → Constant: Configuration or option values
+
+□ Can this be reused in other components?
+  → If yes, put it in utils/, hooks/, or constants/
+  → If no, keep it local to the component
+
+□ Does this violate DRY principle?
+  → Check for duplicate patterns
+  → Check for duplicate constants
+  → Check for duplicate type definitions
+
+□ Is this the simplest possible implementation?
+  → Avoid over-engineering
+  → Don't add unnecessary features
+  → Focus on core requirement only
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📐 CODE QUALITY STANDARDS
+
+Size Limits:
+• Components: < 300 lines
+• Functions: < 50 lines
+• Line length: < 100 characters
+
+Type Safety:
+• ✅ Always use TypeScript types
+• ✅ Type all parameters and return values
+• ✅ Type all React props
+• ❌ Never use `any` type
+• ❌ No untyped functions
+
+Documentation:
+• ✅ JSDoc comments for public functions
+• ✅ Comments for complex logic
+• ✅ Clear, descriptive variable names
+• ❌ No magic numbers or values
+• ❌ No commented-out code
+
+Naming Conventions:
+• Components: PascalCase (PositionCard.tsx)
+• Hooks: camelCase with use prefix (useTemporaryMessage.ts)
+• Utils/Functions: camelCase (calculations.ts)
+• Constants: SCREAMING_SNAKE_CASE (ASSET_OPTIONS)
+• Types: PascalCase (trading.ts, common.ts)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔍 CODE REVIEW CHECKLIST (Before Committing)
+
+Before you commit code, verify ALL of these:
+
+□ DRY: No duplicate logic, constants, or types
+□ Organization: Code in correct folder/file
+□ Naming: Clear, consistent, descriptive names
+□ Types: All parameters and returns typed
+□ Documentation: Functions have JSDoc comments
+□ Size: Components < 300 lines, functions < 50 lines
+□ Performance: No unnecessary renders or calculations
+□ Linting: Passes linter without errors/warnings
+□ Tests: New logic has appropriate test coverage
+□ Accessibility: Proper semantic HTML, ARIA labels
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  COMMON MISTAKES TO AVOID
+
+Mistake 1: Duplicating Logic
+❌ BAD: const pnl = value - shares * price (in multiple files)
+✅ GOOD: import { calculatePnL } from '../utils/calculations'
+
+Mistake 2: Duplicating Constants
+❌ BAD: const ASSETS = ['BTC', 'ETH', 'SPY'] (in multiple files)
+✅ GOOD: import { ASSET_OPTIONS } from '../constants/options'
+
+Mistake 3: Unclear Responsibilities
+❌ BAD: One component does fetching, validating, calculating, rendering
+✅ GOOD: Split into specialized components with focused purposes
+
+Mistake 4: No Type Safety
+❌ BAD: function processData(data) { return data.map(d => d.value) }
+✅ GOOD: function processData(data: Item[]): number[] { ... }
+
+Mistake 5: Magic Numbers
+❌ BAD: signals.filter(s => s.confidence > 0.8)
+✅ GOOD: const CONFIDENCE_THRESHOLD = 0.8; filter(s => s.confidence > CONFIDENCE_THRESHOLD)
+
+Mistake 6: Using `any` Type
+❌ BAD: function calc(data: any): any { ... }
+✅ GOOD: function calc(data: Order[]): number { ... }
+
+Mistake 7: Putting Utils in Components
+❌ BAD: Define utility functions inside components
+✅ GOOD: Move to utils/ and import
+
+Mistake 8: Hardcoding Values
+❌ BAD: if (role === 'admin' || role === 'moderator' || role === 'editor')
+✅ GOOD: const ADMIN_ROLES = ['admin', 'moderator', 'editor']; if (ADMIN_ROLES.includes(role))
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 WORKFLOW FOR NEW FEATURES
+
+1. DESIGN PHASE
+   □ Define requirements clearly
+   □ Check if logic already exists
+   □ Plan component structure
+   □ Identify what can be reused
+
+2. IMPLEMENTATION PHASE
+   □ Extract utilities first
+   □ Create constants for config
+   □ Define TypeScript types
+   □ Build components using utilities
+
+3. TESTING PHASE
+   □ Test utilities thoroughly
+   □ Test components
+   □ Test integration
+   □ Manual QA
+
+4. REVIEW PHASE
+   □ Self-review with checklist above
+   □ Check for duplicates
+   □ Verify organization
+   □ Confirm documentation complete
+
+5. COMMIT PHASE
+   □ Write clear commit message
+   □ Run linter/tests
+   □ Ensure all checks pass
+   □ Commit with confidence
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 METRICS TO MAINTAIN
+
+Monitor these to keep code healthy:
+
+Code Duplication:        Must be < 1%      (currently 0%)
+Average Component Size:  Should be < 200   (lines)
+Average Function Size:   Should be < 40    (lines)
+Type Coverage:           Must be 100%      (no `any` types)
+Test Coverage:           Aim for > 80%     (on touched modules)
+Linting Errors:          Must be 0         (zero tolerance)
+Linting Warnings:        Must be 0         (zero tolerance)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 QUICK REFERENCE
+
+When you need to...                         Look here...
+─────────────────────────────────────────────────────────────────────────────
+Use a calculation function                  utils/calculations.ts
+Save/load from localStorage                 utils/storage.ts
+Use staking provider options                constants/options.ts
+Auto-dismiss a message                      hooks/useTemporaryMessage.ts
+Define common prop interfaces               types/common.ts
+See how components should be structured     CODING_STANDARDS_AND_BEST_PRACTICES.md
+Get quick reference on new utilities        CLEANUP_QUICK_REFERENCE.md
+Understand the cleanup that was done        CLEANUP_IMPLEMENTATION_COMPLETE.md
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📝 WHEN IN DOUBT
+
+1. Check existing patterns in the codebase
+2. Refer to CODING_STANDARDS_AND_BEST_PRACTICES.md
+3. Ask yourself: "Is there a better way to organize this?"
+4. Prioritize: CLARITY > CLEVERNESS
+5. Remember: Code is read more often than it's written
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ ENFORCEMENT
+
+These standards are MANDATORY for:
+✅ All new features
+✅ All bug fixes
+✅ All refactoring work
+✅ Code reviews
+✅ Pull requests
+
+Violations should be caught in:
+✅ Self-review before committing
+✅ Linting (ruff, eslint)
+✅ Type checking (TypeScript)
+✅ Code review process
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 OUR COMMITMENT
+
+By following these guidelines, we ensure:
+
+✨ Clean, organized codebase
+✨ Reduced technical debt
+✨ Easier maintenance and debugging
+✨ Faster feature development
+✨ Better team collaboration
+✨ Production-ready code quality
+✨ Sustainable growth
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Generated: November 2, 2025
+Status: Active & Enforced
+Authority: Required for all development
+Last Review: Post-Cleanup Phase 3
+
+╔════════════════════════════════════════════════════════════════════════════════╗
+║                                                                                ║
+║                    These guidelines protect code quality!                      ║
+║               Follow them for a clean, scalable codebase.                      ║
+║                                                                                ║
+║                        Happy coding! 🚀                                        ║
+║                                                                                ║
+╚════════════════════════════════════════════════════════════════════════════════╝

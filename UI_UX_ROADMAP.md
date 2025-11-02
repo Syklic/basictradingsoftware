@@ -3,6 +3,7 @@
 ## Current State Assessment ✅
 
 **What's Working Well:**
+
 - ✅ Clean, modern dashboard layout
 - ✅ Responsive grid system
 - ✅ Dark mode support
@@ -12,6 +13,7 @@
 - ✅ Working settings menu
 
 **What Needs Improvement:**
+
 - ❌ Empty states are plain (no illustration/guidance)
 - ❌ Loading states are basic
 - ❌ Error handling not implemented
@@ -29,6 +31,7 @@
 ## Priority 1: Foundation Components (MUST HAVE) 🔴
 
 ### 1.1 Badge Component
+
 **Purpose:** Visual status indicators
 **Usage:** Order status, signal confidence, connection status
 
@@ -40,6 +43,7 @@
 ```
 
 **Variants:**
+
 - `success` (green)
 - `warning` (amber)
 - `error` (red)
@@ -47,6 +51,7 @@
 - `pending` (gray)
 
 ### 1.2 Skeleton Loader Component
+
 **Purpose:** Smooth loading experience
 **Usage:** Show while fetching data
 
@@ -56,42 +61,35 @@
 ```
 
 ### 1.3 Empty State Component
+
 **Purpose:** Friendly messaging when no data exists
 **Usage:** Orders, Signals, Portfolio initially
 
 ```tsx
 <EmptyState
-  icon={Zap}
-  title="No Signals Yet"
-  description="Waiting for ML model to generate trading signals"
-  action={<Button>Learn More</Button>}
+	icon={Zap}
+	title="No Signals Yet"
+	description="Waiting for ML model to generate trading signals"
+	action={<Button>Learn More</Button>}
 />
 ```
 
 ### 1.4 Error State Component
+
 **Purpose:** Handle errors gracefully
 **Usage:** API failures, connection issues
 
 ```tsx
-<ErrorState
-  title="Connection Failed"
-  description="Unable to connect to backend"
-  action={<Button onClick={retry}>Retry</Button>}
-/>
+<ErrorState title="Connection Failed" description="Unable to connect to backend" action={<Button onClick={retry}>Retry</Button>} />
 ```
 
 ### 1.5 Stat Card Component
+
 **Purpose:** Reusable metric display
 **Usage:** Portfolio stats, performance metrics
 
 ```tsx
-<StatCard
-  label="Daily P&L"
-  value="+$1,234.56"
-  change="+2.5%"
-  positive={true}
-  icon={TrendingUp}
-/>
+<StatCard label="Daily P&L" value="+$1,234.56" change="+2.5%" positive={true} icon={TrendingUp} />
 ```
 
 ---
@@ -99,7 +97,9 @@
 ## Priority 2: Enhanced Panels (HIGH) 🟡
 
 ### 2.1 Portfolio Card Improvements
+
 **Add:**
+
 - [ ] Animated number changes (smooth transitions)
 - [ ] Progress bar showing buying power usage
 - [ ] Hover tooltips explaining percentages
@@ -111,7 +111,9 @@
 **After:** Interactive, informative dashboard card
 
 ### 2.2 Orders Panel Enhancements
+
 **Add:**
+
 - [ ] Status badges (Filled, Pending, Cancelled)
 - [ ] Order type icons (Limit, Market, Stop)
 - [ ] Profit/loss indicators with colors
@@ -121,13 +123,15 @@
 - [ ] Pagination/scroll for many orders
 - [ ] Filter by status
 
-**Before:** 
+**Before:**
+
 ```
 AAPL BUY 10
 $150.25
 ```
 
 **After:**
+
 ```
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  AAPL  [BUY]  10 @ $150.25  [+$234]
@@ -136,7 +140,9 @@ $150.25
 ```
 
 ### 2.3 Signals Panel Enhancements
+
 **Add:**
+
 - [ ] Confidence visual (circular progress indicator)
 - [ ] Model badge showing which AI model
 - [ ] Signal strength visualization (5-star or bar)
@@ -147,12 +153,14 @@ $150.25
 - [ ] Signal categories (breakout, reversal, trend-follow)
 
 **Before:**
+
 ```
 BTC 🔥 BUY
 Confidence: 87.5%
 ```
 
 **After:**
+
 ```
 ┌─────────────────────────────────────┐
 │ BTC  [BUY]  🔥 STRONG SIGNAL        │
@@ -168,7 +176,9 @@ Confidence: 87.5%
 ## Priority 3: Visual Polish (MEDIUM) 🟠
 
 ### 3.1 Micro-Interactions
+
 **Add:**
+
 - [ ] Button hover effects (subtle scale/shadow)
 - [ ] Card hover effects (border color change, shadow lift)
 - [ ] Smooth transitions on all state changes
@@ -178,7 +188,9 @@ Confidence: 87.5%
 - [ ] Scroll fade effects
 
 ### 3.2 Charts Enhancement
+
 **Add:**
+
 - [ ] Chart title secondary text (time period)
 - [ ] Interactive legend
 - [ ] Zoom/pan controls
@@ -189,7 +201,9 @@ Confidence: 87.5%
 - [ ] Technical indicator overlays
 
 ### 3.3 Color Coding System
+
 **Standardize:**
+
 - [ ] Green = Positive/Buy
 - [ ] Red = Negative/Sell
 - [ ] Blue = Info/Neutral
@@ -198,7 +212,9 @@ Confidence: 87.5%
 - [ ] Purple = Signal/Alert
 
 ### 3.4 Typography System
+
 **Implement:**
+
 - [ ] Clear hierarchy (H1 > H2 > Body > Caption)
 - [ ] Consistent font sizes
 - [ ] Proper line heights
@@ -210,22 +226,27 @@ Confidence: 87.5%
 ## Priority 4: Navigation & Layout (MEDIUM) 🟠
 
 ### 4.1 Bottom Navigation (Mobile)
+
 **Add** for mobile view:
+
 - [ ] Tab bar at bottom (Dashboard, Portfolio, Signals, Settings)
 - [ ] Active tab indicator
 - [ ] Icons only on small screens
 - [ ] Labels on medium screens
 
 ### 4.2 Breadcrumbs (Optional)
+
 **For:** Navigation clarity on nested pages
 
 ### 4.3 Better Mobile Spacing
+
 - [ ] Adjust padding/margins for small screens
 - [ ] Stack cards vertically on mobile
 - [ ] Touch-friendly button sizes (min 48x48px)
 - [ ] Simplified charts on small screens
 
 ### 4.4 Keyboard Navigation
+
 - [ ] Tab through interactive elements
 - [ ] Enter to activate buttons
 - [ ] Escape to close dialogs
@@ -236,7 +257,9 @@ Confidence: 87.5%
 ## Priority 5: Interactive Features (MEDIUM-HIGH) 🟡
 
 ### 5.1 Buy/Sell Action Modal
+
 **Create:**
+
 ```
 ┌─────────────────────────────────┐
 │ Buy AAPL                     [x] │
@@ -254,7 +277,9 @@ Confidence: 87.5%
 ```
 
 ### 5.2 Order Details Modal
+
 **Show:**
+
 - [ ] Full order information
 - [ ] Execution price vs market price
 - [ ] Commission breakdown
@@ -262,7 +287,9 @@ Confidence: 87.5%
 - [ ] Order history/amendments
 
 ### 5.3 Asset Details Page
+
 **Show:**
+
 - [ ] Full asset information
 - [ ] Advanced chart
 - [ ] Technical indicators
@@ -275,17 +302,20 @@ Confidence: 87.5%
 ## Priority 6: Accessibility (MEDIUM) 🟠
 
 ### 6.1 ARIA Labels
+
 - [ ] All buttons have labels
 - [ ] Icons have descriptions
 - [ ] Form inputs labeled
 - [ ] Live regions for updates
 
 ### 6.2 Color Contrast
+
 - [ ] Verify WCAG AA compliance
 - [ ] Test with accessibility tools
 - [ ] Ensure red/green not only indicator
 
 ### 6.3 Screen Reader Support
+
 - [ ] Semantic HTML
 - [ ] Proper heading structure
 - [ ] Link text descriptive
@@ -295,24 +325,28 @@ Confidence: 87.5%
 ## Priority 7: Advanced Features (LOW) 🟢
 
 ### 7.1 Dashboard Customization
+
 - [ ] Drag-to-reorder cards
 - [ ] Hide/show panels
 - [ ] Save custom layouts
 - [ ] Multiple dashboard profiles
 
 ### 7.2 Notifications Center
+
 - [ ] Bell icon with badge count
 - [ ] Notification history
 - [ ] Mark as read/unread
 - [ ] Clear all button
 
 ### 7.3 Quick Search
+
 - [ ] Global search for assets
 - [ ] Command palette (Cmd+K)
 - [ ] Recent searches
 - [ ] Search filters
 
 ### 7.4 Data Export
+
 - [ ] Export orders as CSV
 - [ ] Export performance report
 - [ ] Email report
@@ -323,12 +357,14 @@ Confidence: 87.5%
 ## Priority 8: Performance (ONGOING) 🟢
 
 ### 8.1 Optimization
+
 - [ ] Image lazy loading
 - [ ] Component code-splitting
 - [ ] Memoization of expensive renders
 - [ ] Virtual scrolling for long lists
 
 ### 8.2 Caching
+
 - [ ] Cache API responses
 - [ ] Service worker for offline
 - [ ] IndexedDB for local data
@@ -338,6 +374,7 @@ Confidence: 87.5%
 ## Component Checklist
 
 ### Phase 1: Foundation (Week 1)
+
 - [ ] Badge component
 - [ ] Skeleton loader
 - [ ] Empty state
@@ -345,6 +382,7 @@ Confidence: 87.5%
 - [ ] Stat card
 
 ### Phase 2: Enhancements (Week 2)
+
 - [ ] Portfolio card animation
 - [ ] Orders panel redesign
 - [ ] Signals panel redesign
@@ -352,6 +390,7 @@ Confidence: 87.5%
 - [ ] Mobile bottom nav
 
 ### Phase 3: Advanced (Week 3+)
+
 - [ ] Buy/Sell modal
 - [ ] Order details modal
 - [ ] Dashboard customization
@@ -363,6 +402,7 @@ Confidence: 87.5%
 ## Visual Design Guidelines
 
 ### Colors
+
 ```
 Success:     #10b981 (Green)
 Warning:     #f59e0b (Amber)
@@ -373,6 +413,7 @@ Neutral:     #6b7280 (Gray)
 ```
 
 ### Spacing
+
 ```
 xs: 4px
 sm: 8px
@@ -383,6 +424,7 @@ xl: 32px
 ```
 
 ### Border Radius
+
 ```
 Small:  4px  (alerts, badges)
 Medium: 8px  (cards, inputs)
@@ -391,6 +433,7 @@ Full:   9999px (pills, avatars)
 ```
 
 ### Shadow
+
 ```
 sm:  0 1px 2px rgba(0,0,0,0.05)
 md:  0 4px 6px rgba(0,0,0,0.1)
@@ -399,6 +442,7 @@ xl:  0 20px 25px rgba(0,0,0,0.2)
 ```
 
 ### Typography
+
 ```
 H1: 32px, weight 700
 H2: 24px, weight 600
@@ -413,18 +457,21 @@ Tiny: 12px, weight 500
 ## Implementation Strategy
 
 ### Week 1: Foundation
+
 1. Create all foundation components in `components/ui/`
 2. Update existing panels with new components
 3. Add empty/error states to all panels
 4. Test on mobile
 
 ### Week 2: Enhancement
+
 1. Add animations to all components
 2. Implement interactive features
 3. Improve mobile layout
 4. Polish interactions
 
 ### Week 3: Advanced
+
 1. Create modals (Buy/Sell, Details)
 2. Implement dashboard customization
 3. Add search/notifications
@@ -441,7 +488,7 @@ Tiny: 12px, weight 500
 ✅ **Color coding is consistent**  
 ✅ **Accessibility standards met**  
 ✅ **User can intuitively understand all data**  
-✅ **No functionality gaps in current flow**  
+✅ **No functionality gaps in current flow**
 
 ---
 
