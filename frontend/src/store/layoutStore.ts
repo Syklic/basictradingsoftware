@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 
 export interface WidgetConfig {
   id: string
-  type: 'portfolio' | 'stats' | 'chart' | 'orders' | 'signals' | 'indices' | 'allocation' | 'returns' | 'correlation' | 'heatmap' | 'journal' | 'model'
+  type: 'portfolio' | 'stats' | 'chart' | 'orders' | 'signals' | 'indices' | 'allocation' | 'returns' | 'correlation' | 'heatmap' | 'journal' | 'model' | 'candlestick'
   enabled: boolean
   position: { x: number; y: number }
   size: { width: number; height: number }
@@ -273,9 +273,18 @@ export const useLayoutStore = create<LayoutStore>()(
         const layout = get().currentLayout()
         if (!layout) return
 
+        // Get the widget being moved
+        const movingWidget = layout.widgets.find((w) => w.type === widgetType)
+        if (!movingWidget) return
+
+        // Clamp position to grid bounds
+        const clampedX = Math.max(0, Math.min(x, Math.max(0, layout.gridSize - movingWidget.size.width)))
+        const clampedY = Math.max(0, y)
+
+        // Simply update the widget position - allow overlaps
         const updatedWidgets = layout.widgets.map((w) =>
           w.type === widgetType
-            ? { ...w, position: { x, y } }
+            ? { ...w, position: { x: clampedX, y: clampedY } }
             : w
         )
 

@@ -7,13 +7,17 @@ import Analytics from './Analytics'
 import Watchlists from './Watchlists'
 import Settings from './Settings'
 
-export default function ViewContainer() {
+interface ViewContainerProps {
+  chartColor?: string
+}
+
+export default function ViewContainer({ chartColor = '#3b82f6' }: ViewContainerProps) {
   const currentView = useNavigationStore((state) => state.currentView)
   const selectedAsset = useNavigationStore((state) => state.selectedAsset)
 
   return (
     <div className="flex-1 overflow-auto">
-      {currentView === 'dashboard' && <Dashboard />}
+      {currentView === 'dashboard' && <Dashboard chartColor={chartColor} />}
       {currentView === 'portfolio' && <Portfolio />}
       {currentView === 'trade-execution' && <TradeExecution />}
       {currentView === 'signals-strategy' && <SignalsStrategy />}

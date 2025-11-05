@@ -9,6 +9,7 @@ const WIDGET_DESCRIPTIONS: Record<string, { name: string; description: string }>
   portfolio: { name: 'Portfolio Overview', description: 'Your total portfolio value and allocation' },
   stats: { name: 'Performance Metrics', description: 'Key trading statistics and performance' },
   chart: { name: 'Price Chart', description: 'Portfolio or asset price visualization' },
+  candlestick: { name: 'Candlestick Chart', description: 'OHLC candlestick chart for price action' },
   orders: { name: 'Orders History', description: 'Recent trades and order status' },
   signals: { name: 'Trading Signals', description: 'ML-generated buy/sell signals' },
   indices: { name: 'Market Indices', description: 'S&P 500, Nasdaq, and other indices' },

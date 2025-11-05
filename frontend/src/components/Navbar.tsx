@@ -9,9 +9,10 @@ interface NavbarProps {
   isConnected: boolean
   sidebarCollapsed?: boolean
   onThemeOpen?: () => void
+  onSettingsOpen?: () => void
 }
 
-export default function Navbar({ isConnected, sidebarCollapsed = false, onThemeOpen }: NavbarProps) {
+export default function Navbar({ isConnected, sidebarCollapsed = false, onThemeOpen, onSettingsOpen }: NavbarProps) {
   const [isDark, setIsDark] = useState(false)
   const [showWidgetManager, setShowWidgetManager] = useState(false)
   const editMode = useLayoutStore((state) => state.editMode)
